@@ -23,5 +23,6 @@ module.exports = async (req, res, next) => {
     next();
   } catch (error) {
     console.error({ errorOnValidatingJWT: error });
+    next(error)
   }
 };

@@ -1,50 +1,75 @@
 const articleModel = require("../../models/article");
-const sessionModel = require("../../models/session");
 
-exports.create = async (req, res) => {
-  const { title, description, body, shortName, categoryID } = req.body;
+exports.create = async (req, res, next) => {
+  try {
+    const { title, description, body, shortName, categoryID } = req.body;
+    const cover = req.file;
 
-  const article = await articleModel.create({
-    title,
-    description,
-    shortName,
-    body,
-    creator: req.user._id,
-    categoryID,
-    cover: req.file.filename,
-    publish: 1
-  });
+    await articleModel.validation({ ...req.body, cover }).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
 
-  const populatedCourse = await articleModel
-    .findById(article._id)
-    .populate("creator", "-password");
+    const article = await articleModel.create({
+      title,
+      description,
+      shortName,
+      body,
+      creator: req.user._id,
+      categoryID,
+      cover: req.file.filename,
+      publish: 1,
+    });
 
-  return res.status(201).json(populatedCourse);
+    const populatedCourse = await articleModel
+      .findById(article._id)
+      .populate("creator", "-password");
+
+    return res.status(201).json(populatedCourse);
+    
+  } catch (error) {
+    next(error);
+  }
 };
 
-exports.saveDraft = async (req, res) => {
-  const { title, description, body, shortName, categoryID } = req.body;
 
-  const article = await articleModel.create({
-    title,
-    description,
-    shortName,
-    body,
-    creator: req.user._id,
-    categoryID,
-    cover: req.file.filename,
-    publish: 0
-  });
+exports.saveDraft = async (req, res,next) => {
+  try {
+    const { title, description, body, shortName, categoryID } = req.body;
 
-  const populatedCourse = await articleModel
-    .findById(article._id)
-    .populate("creator", "-password");
-
-  return res.status(201).json(populatedCourse);
+    const cover = req.file;
+    await articleModel.validation({ ...req.body, cover }).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
+  
+    const article = await articleModel.create({
+      title,
+      description,
+      shortName,
+      body,
+      creator: req.user._id,
+      categoryID,
+      cover: req.file.filename,
+      publish: 0,
+    });
+  
+    const populatedCourse = await articleModel
+      .findById(article._id)
+      .populate("creator", "-password");
+  
+    return res.status(201).json(populatedCourse);
+    
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.getAll = async (req, res) => {
-  const articles = await articleModel.find().populate("creator", "-password").sort({ _id: -1 });
+  const articles = await articleModel
+    .find()
+    .populate("creator", "-password")
+    .sort({ _id: -1 });
   return res.json(articles);
 };
 

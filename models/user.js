@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const { registerValidator, loginValidator } = require('../validators/v1/user');
 
-const schema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     username: {
       type: String,
@@ -32,6 +33,14 @@ const schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const model = mongoose.model('User', schema);
+//* add yup validation method to mongoose statics
+userSchema.statics.registerValidation = function (body) {
+  return registerValidator.validate(body, { abortEarly: false });
+};
+userSchema.statics.loginValidation = function (body) {
+  return loginValidator.validate(body, { abortEarly: false });
+};
+
+const model = mongoose.model('User', userSchema);
 
 module.exports = model;

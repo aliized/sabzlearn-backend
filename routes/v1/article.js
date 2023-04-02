@@ -22,7 +22,9 @@ router
   )
   .get(articleController.getAll);
 
+
 router.route("/:shortName").get(articleController.getOne);
+
 router
   .route("/draft")
   .post(
@@ -31,6 +33,7 @@ router
     isAdminMiddleware,
     articleController.saveDraft
   );
+  
 router.route("/:id").delete(articleController.remove);
 
 module.exports = router;
