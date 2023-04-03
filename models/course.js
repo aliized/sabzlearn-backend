@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const { createCourseValidator } = require("../validators/v1/course");
 
-const schema = new mongoose.Schema(
+const courseSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -51,18 +52,24 @@ const schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-schema.virtual("sessions", {
+courseSchema.virtual("sessions", {
   ref: "Session",
   localField: "_id",
   foreignField: "course",
 });
 
-schema.virtual("comments", {
+courseSchema.virtual("comments", {
   ref: "Comment",
   localField: "_id",
   foreignField: "course",
 });
 
-const model = mongoose.model("Course", schema);
+
+//* add yup validation method to mongoose statics
+courseSchema.statics.createValidation = function (body) {
+  return createCourseValidator.validate(body, { abortEarly: false });
+};
+
+const model = mongoose.model("Course", courseSchema);
 
 module.exports = model;
