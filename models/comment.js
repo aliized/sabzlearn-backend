@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const {
   createCommentValidator,
   answerCommentValidator,
-  acceptRejectCommentValidator,
+  commentIdValidator,
 } = require("../validators/v1/comment");
 
 const commentSchema = new mongoose.Schema(
@@ -46,8 +46,8 @@ commentSchema.statics.createValidation = function (body) {
 commentSchema.statics.answerValidation = function (body) {
   return answerCommentValidator.validate(body, { abortEarly: false });
 };
-commentSchema.statics.acceptionValidation = function (body) {
-  return acceptRejectCommentValidator.validate(body, { abortEarly: false });
+commentSchema.statics.commentIdValidation = function (body) {
+  return commentIdValidator.validate(body, { abortEarly: false });
 };
 
 const model = mongoose.model("Comment", commentSchema);

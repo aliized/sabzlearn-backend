@@ -1,4 +1,3 @@
-const categoryModel = require("../../models/category");
 const courseModel = require("../../models/course");
 const userModel = require("../../models/user");
 const infosModel = require("../../models/infos");

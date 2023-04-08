@@ -68,6 +68,10 @@ exports.getAll = async (req, res, next) => {
 
 exports.remove = async (req, res, next) => {
   try {
+    await commentModel.commentIdValidation(req.params).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
     const deletedComment = await commentModel.findOneAndRemove({
       _id: req.params.id,
     });
@@ -115,7 +119,7 @@ exports.answer = async (req, res, next) => {
 
 exports.accept = async (req, res, next) => {
   try {
-    await commentModel.acceptionValidation(req.params).catch((err) => {
+    await commentModel.commentIdValidation(req.params).catch((err) => {
       err.statusCode = 400;
       throw err;
     });
@@ -138,7 +142,7 @@ exports.accept = async (req, res, next) => {
 
 exports.reject = async (req, res, next) => {
   try {
-    await commentModel.acceptionValidation(req.params).catch((err) => {
+    await commentModel.commentIdValidation(req.params).catch((err) => {
       err.statusCode = 400;
       throw err;
     });

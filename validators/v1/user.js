@@ -1,35 +1,47 @@
 const yup = require("yup");
 
-//* Register Schema
-const registerValidator = yup.object().shape({
-  username: yup.string().required("نام کاربری الزامی می‌باشد"),
-  email: yup
+const removeUserValidator = yup.object().shape({
+  id: yup
     .string()
-    .email("آدرس ایمیل نامعتبر است")
-    .required("آدرس ایمیل الزامی می‌باشد"),
-  password: yup
-    .string()
-    .min(8, "رمز عبور باید حداقل ۸ کاراکتر باشد")
-    .required("رمز عبور الزامی می‌باشد"),
-  confirmPassword: yup
-    .string()
-    .required("تکرار کلمه عبور الزامی می باشد")
-    .oneOf([yup.ref("password"), null], "کلمه ی عبور و تکرار آن یکسان نیستند"),
-  name: yup
-    .string()
-    .required("نام و نام خانوادگی الزامی می‌باشد")
-    .min(3, "نام و نام خانوادگی نباید کمتر از 3 کاراکتر باشد")
-    .max(40, "نام و نام خانوادگی نباید بیشتر از 40 کاراکتر باشد"),
-  phone: yup.string().required("شماره تلفن همراه الزامی می‌باشد"),
+    .required("شناسه کاربر الزامی است")
+    .matches(/^[0-9a-fA-F]{24}$/, "شناسه کاربر معتبر نیست"),
 });
 
-//* Login Schema
-const loginValidator = yup.object().shape({
-  identifier: yup.string().required(" شناسه کاربری یا ایمیل الزامی است"),
-  password: yup.string().required(" کلمه عبور الزامی است"),
+const banUserValidator = yup.object().shape({
+  id: yup
+    .string()
+    .required("شناسه کاربر الزامی است")
+    .matches(/^[0-9a-fA-F]{24}$/, "شناسه کاربر معتبر نیست"),
+});
+
+const updateUserValidator = yup.object().shape({
+  name: yup.string().required("نام الزامی است"),
+  username: yup.string().required("نام کاربری الزامی است"),
+  email: yup.string().email("ایمیل معتبر نیست").required("ایمیل الزامی است"),
+  password: yup
+    .string()
+    .required("رمز عبور الزامی است")
+    .min(8, "رمز عبور باید حداقل 8 کاراکتر باشد"),
+  phone: yup
+    .string()
+    .required("شماره تلفن همراه الزامی است")
+    .matches(/^09[0-9]{9}$/, "شماره تلفن همراه معتبر نیست"),
+});
+
+const changeUserRoleValidator = yup.object().shape({
+  id: yup
+    .string()
+    .required("شناسه کاربر الزامی است")
+    .matches(/^[0-9a-fA-F]{24}$/, "شناسه کاربر معتبر نیست"),
+  role: yup
+    .string()
+    .oneOf(["ADMIN", "USER"], "نقش کاربر باید یکی از مقادیر ADMIN و USER باشد")
+    .required("نقش کاربر الزامی است"),
 });
 
 module.exports = {
-  registerValidator,
-  loginValidator,
+  removeUserValidator,
+  banUserValidator,
+  updateUserValidator,
+  changeUserRoleValidator,
 };

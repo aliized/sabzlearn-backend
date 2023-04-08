@@ -1,6 +1,6 @@
 const userModel = require("../../models/user");
 const banUserModel = require("../../models/ban-phone");
-const courseUserModel = require("../m");
+const courseUserModel = require("../../models/course-user");
 const bcrypt = require("bcrypt");
 
 // exports.create = async (req, res, next) => {
@@ -37,6 +37,11 @@ exports.getAll = async (req, res, next) => {
 
 exports.removeUser = async (req, res, next) => {
   try {
+    await userModel.removeUserValidation(req.params).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
+
     const deletedUser = await userModel.findOneAndRemove({
       _id: req.params.id,
     });
@@ -53,6 +58,11 @@ exports.removeUser = async (req, res, next) => {
 
 exports.banUser = async (req, res, next) => {
   try {
+    await userModel.removeUserValidation(req.params).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
+
     const mainUser = await userModel.findOne({ _id: req.params.id }).lean();
     const banUserResult = banUserModel.create({ phone: mainUser.phone });
 
@@ -80,6 +90,11 @@ exports.getUserCourses = async (req, res, next) => {
 
 exports.updateUser = async (req, res, next) => {
   try {
+    await userModel.updateUserValidation(req.body).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
+
     const { name, username, email, password, phone } = req.body;
 
     const hashedPassword = await bcrypt.hash(password, 12);
@@ -103,6 +118,11 @@ exports.updateUser = async (req, res, next) => {
 
 exports.changeUserRole = async (req, res, next) => {
   try {
+    await userModel.changeUserRoleValidation(req.body).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
+
     const { role, id } = req.body;
     console.log(role);
 

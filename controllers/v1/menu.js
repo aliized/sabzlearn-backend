@@ -3,6 +3,9 @@ const menuModel = require("../../models/menu");
 exports.getAll = async (req, res, next) => {
   try {
     const menus = await menuModel.find().lean();
+    if (menus.length === 0) {
+      return res.status(404).json({ message: "No Menus Available!" });
+    }
 
     for (const menu of menus) {
       const submenus = [];
@@ -24,6 +27,11 @@ exports.getAll = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
   try {
+    await menuModel.createValidation(req.body).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
+
     const { href, title, parent } = req.body;
 
     const menu = await menuModel.create({ title, href, parent });
@@ -37,6 +45,9 @@ exports.create = async (req, res, next) => {
 exports.getAllTopbarLinks = async (req, res, next) => {
   try {
     const menus = await menuModel.find().lean();
+    if (menus.length === 0) {
+      return res.status(404).json({ message: "No Topbar Link Available!" });
+    }
     let topbarLinks = [];
 
     for (const menu of menus) {
@@ -44,7 +55,6 @@ exports.getAllTopbarLinks = async (req, res, next) => {
         topbarLinks.push(menu);
       }
     }
-
     res.json(topbarLinks);
   } catch (error) {
     next(error);
@@ -54,6 +64,9 @@ exports.getAllTopbarLinks = async (req, res, next) => {
 exports.getAllPanelMenus = async (req, res, next) => {
   try {
     const menus = await menuModel.find({}).populate("parent").lean();
+    if (menus.length === 0) {
+      return res.status(404).json({ message: "No Topbar Link Available!" });
+    }
     res.json(menus);
   } catch (error) {
     next(error);
@@ -62,6 +75,10 @@ exports.getAllPanelMenus = async (req, res, next) => {
 
 exports.remove = async (req, res, next) => {
   try {
+    await menuModel.removeValidation(req.params).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
     const deletedMenu = await menuModel.findOneAndRemove({
       _id: req.params.id,
     });

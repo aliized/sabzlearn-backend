@@ -3,6 +3,10 @@ var nodemailer = require("nodemailer");
 
 exports.create = async (req, res, next) => {
   try {
+    await contactModel.createValidation(req.body).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
     const { name, email, phone, body } = req.body;
 
     const newcontact = await contactModel.create({
@@ -30,6 +34,12 @@ exports.getAll = async (req, res, next) => {
 
 exports.asnwer = async (req, res, next) => {
   try {
+    await contactModel.answerValidation(req.body).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
+
+    const { email, answer } = req.body;
     var transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -41,13 +51,13 @@ exports.asnwer = async (req, res, next) => {
 
     var mailOptions = {
       from: "sabzlearnir@gmail.com",
-      to: req.body.email,
+      to: email,
       subject: "پاسخ پیغام شما از سمت آکادمی سبزلرن",
-      text: req.body.answer,
+      text: answer,
     };
 
     const contact = await contactModel.findOneAndUpdate(
-      { email: req.body.email },
+      { email: email },
       {
         answer: 1,
       }
@@ -67,6 +77,10 @@ exports.asnwer = async (req, res, next) => {
 
 exports.remove = async (req, res, next) => {
   try {
+    await contactModel.removeValidation(req.params).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
     const deletedContact = await contactModel.findOneAndRemove({
       _id: req.params.id,
     });

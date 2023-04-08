@@ -10,7 +10,7 @@ const answerCommentValidator = yup.object().shape({
   body: yup.string().required("متن پاسخ الزامی است"),
 });
 
-const acceptRejectCommentValidator = yup.object().shape({
+const commentIdValidator = yup.object().shape({
   id: yup
     .string()
     .required("شناسه نظر الزامی است")
@@ -20,5 +20,5 @@ const acceptRejectCommentValidator = yup.object().shape({
 module.exports = {
   createCommentValidator,
   answerCommentValidator,
-  acceptRejectCommentValidator,
+  commentIdValidator,
 };

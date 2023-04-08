@@ -55,6 +55,10 @@ exports.getAll = async (req, res, next) => {
       .lean()
       .sort({ _id: -1 });
 
+    if (!courses) {
+      return res.status(404).json({ message: "No Course Available!" });
+    }
+
     const registers = await courseUserModel.find({}).lean();
     const comments = await commentModel.find().lean();
 
@@ -75,7 +79,7 @@ exports.getAll = async (req, res, next) => {
 
       allCourses.push({
         ...course,
-        categoryID: course.categoryID.title,
+        categoryID: course.categoryID,
         creator: course.creator.name,
         registers: courseRegisters.length,
         courseAverageScore: Math.floor(
@@ -92,11 +96,19 @@ exports.getAll = async (req, res, next) => {
 
 exports.getOne = async (req, res, next) => {
   try {
+    await courseModel.getOneValidation(req.params).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
+
     const course = await courseModel
       .findOne({ shortName: req.params.shortName })
       .populate("categoryID", "-password")
       .populate("creator", "-password")
       .lean();
+    if (!course) {
+      return res.status(404).json({ message: "Course Not Found!" });
+    }
 
     const sessions = await sessionModel.find({ course: course._id }).lean();
     const comments = await commentModel
@@ -153,12 +165,26 @@ exports.getOne = async (req, res, next) => {
 exports.createSession = async (req, res, next) => {
   try {
     const { title, time, free } = req.body;
+    const { id } = req.params;
+    const { video } = req.file;
+    await courseModel
+      .createSessionValidation({
+        title,
+        time,
+        free,
+        id,
+        video,
+      })
+      .catch((err) => {
+        err.statusCode = 400;
+        throw err;
+      });
 
     const session = await sessionModel.create({
       title,
       time,
       free,
-      course: req.params.id,
+      course: id,
       video: req.file.filename,
     });
 
@@ -174,6 +200,10 @@ exports.getAllSessions = async (req, res, next) => {
       .find()
       .populate("course", "name")
       .lean();
+
+    if (!allSessions) {
+      return res.status(404).json({ message: "No Session Available!" });
+    }
     res.json(allSessions);
   } catch (error) {
     next(error);
@@ -182,6 +212,10 @@ exports.getAllSessions = async (req, res, next) => {
 
 exports.register = async (req, res, next) => {
   try {
+    await courseModel.registerValidation(req.body).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
     const isUserAlreadyRegistered = await courseUserModel
       .findOne({ user: req.user._id, course: req.params.id })
       .lean();
@@ -208,6 +242,11 @@ exports.register = async (req, res, next) => {
 
 exports.getCategoryCourses = async (req, res, next) => {
   try {
+    await courseModel.getCategoryCoursesValidation(req.params).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
+
     const { categoryName } = req.params;
     const category = await categoryModel.find({ name: categoryName });
     if (category.length) {
@@ -257,6 +296,11 @@ exports.getCategoryCourses = async (req, res, next) => {
 
 exports.remove = async (req, res, next) => {
   try {
+    await courseModel.removeCourseValidation(req.params).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
+
     const deletedCourse = await courseModel.findOneAndRemove({
       _id: req.params.id,
     });
@@ -271,6 +315,11 @@ exports.remove = async (req, res, next) => {
 
 exports.removeSession = async (req, res, next) => {
   try {
+    await courseModel.removeSessionValidation(req.params).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
+
     const deletedSession = await sessionModel.findOneAndRemove({
       _id: req.params.id,
     });
@@ -285,6 +334,11 @@ exports.removeSession = async (req, res, next) => {
 
 exports.getSessionInfo = async (req, res, next) => {
   try {
+    await courseModel.getSessionInfoValidation(req.params).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
+
     const course = await courseModel
       .findOne({ shortName: req.params.shortName })
       .lean();
@@ -304,6 +358,11 @@ exports.getSessionInfo = async (req, res, next) => {
 
 exports.getRelated = async (req, res, next) => {
   try {
+    await courseModel.getRelatedValidation(req.params).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
+
     const { shortName } = req.params;
     const course = await courseModel.findOne({ shortName });
     let relatedCourses = await courseModel.find({

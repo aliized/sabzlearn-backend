@@ -5,7 +5,6 @@ const courseController = require("../../controllers/v1/course");
 const multerStorage = require("../../util/multerStorage");
 const authenticatedMiddleware = require("../../middlewares/authenticated");
 const isAdminMiddleware = require("../../middlewares/isAdmin");
-const loginUser = require("./../../middlewares/loginUser");
 
 const router = express.Router();
 
@@ -61,7 +60,7 @@ router
 router.route("/presell").get(courseController.getAll);
 router.route("/popular").get(courseController.getAll);
 
-router.route("/:shortName").post(loginUser, courseController.getOne);
+router.route("/:shortName").post(authenticatedMiddleware, courseController.getOne);
 
 router
   .route("/:id/register")

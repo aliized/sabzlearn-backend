@@ -5,6 +5,10 @@ const courseModel = require("../../models/course");
 
 exports.create = async (req, res, next) => {
   try {
+    await courseModel.createValidation(req.body).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
     const { departmentID, departmentSubID, title, priority, body, course } =
       req.body;
 
@@ -42,6 +46,9 @@ exports.userTickets = async (req, res, next) => {
       .populate("user")
       .lean();
 
+    if (!tickets) {
+      return res.status(404).json({ message: "No Ticket Available!" });
+    }
     let ticketsArray = [];
 
     tickets.forEach((ticket) => {
@@ -71,6 +78,9 @@ exports.getAll = async (req, res, next) => {
       .populate("departmentSubID")
       .lean();
 
+    if (!tickets) {
+      return res.status(404).json({ message: "No Ticket Available!" });
+    }
     let ticketsArray = [];
 
     tickets.forEach(async (ticket) => {
@@ -85,8 +95,6 @@ exports.getAll = async (req, res, next) => {
       }
     });
 
-    console.log(ticketsArray);
-
     return res.json(ticketsArray);
   } catch (error) {
     next(error);
@@ -95,13 +103,21 @@ exports.getAll = async (req, res, next) => {
 
 exports.getAnswer = async (req, res, next) => {
   try {
+    await courseModel.getAnswerValidation(req.params).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
+
     const { id } = req.params;
-    const answerTicker = await ticketModel.findOne({ parent: id });
+    const answerTicket = await ticketModel.findOne({ parent: id });
     const ticket = await ticketModel.findOne({ _id: id });
+    if (!answerTicket || !ticket) {
+      return res.status(404).json({ message: "recheck the ID!" });
+    }
 
     res.json({
       ticket: ticket.body,
-      answer: answerTicker ? answerTicker.body : null,
+      answer: answerTicket ? answerTicket.body : null,
     });
   } catch (error) {
     next(error);
@@ -110,9 +126,16 @@ exports.getAnswer = async (req, res, next) => {
 
 exports.setAnswer = async (req, res, next) => {
   try {
+    await courseModel.setAnswerValidation(req.body).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
     const { body, ticketID } = req.body;
 
     const ticket = await ticketModel.findOne({ _id: ticketID }).lean();
+    if (!ticket) {
+      return res.status(404).json({ message: "Ticket Not Found!" });
+    }
 
     const answer = await ticketModel.create({
       title: ticket.title,
@@ -142,7 +165,9 @@ exports.setAnswer = async (req, res, next) => {
 exports.departments = async (req, res, next) => {
   try {
     const departments = await departmentModel.find();
-
+    if (!departments) {
+      return res.status(404).json({ message: "No Department Available!" });
+    }
     res.json(departments);
   } catch (error) {
     next(error);
@@ -151,9 +176,17 @@ exports.departments = async (req, res, next) => {
 
 exports.departmentsSubs = async (req, res, next) => {
   try {
+    await courseModel.departmentsSubsValidation(req.params).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
     const departmentSubs = await departmentSubModel
       .find({ parent: req.params.id })
       .lean();
+
+    if (!departmentSubs) {
+      return res.status(404).json({ message: "Department Not Found!" });
+    }
     res.json(departmentSubs);
   } catch (error) {
     next(error);

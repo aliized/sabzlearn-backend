@@ -30,9 +30,4 @@ exports.articleValidator = yup.object().shape({
     .string()
     .required("شناسه دسته بندی مقاله الزامی است")
     .matches(/^[0-9a-fA-F]{24}$/, "شناسه دسته بندی نامعتبر است"),
-  creator: yup
-    .string()
-    .required("شناسه نویسنده مقاله الزامی است")
-    .matches(/^[0-9a-fA-F]{24}$/, "شناسه نویسنده نامعتبر است"),
-  
 });

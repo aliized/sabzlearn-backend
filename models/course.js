@@ -1,5 +1,15 @@
 const mongoose = require("mongoose");
-const { createCourseValidator } = require("../validators/v1/course");
+const {
+  createCourseValidator,
+  getRelatedValidator,
+  getSessionInfoValidator,
+  removeSessionValidator,
+  removeCourseValidator,
+  getCategoryCoursesValidator,
+  registerValidator,
+  createSessionValidator,
+  getOneValidator,
+} = require("../validators/v1/course");
 
 const courseSchema = new mongoose.Schema(
   {
@@ -64,10 +74,33 @@ courseSchema.virtual("comments", {
   foreignField: "course",
 });
 
-
 //* add yup validation method to mongoose statics
 courseSchema.statics.createValidation = function (body) {
   return createCourseValidator.validate(body, { abortEarly: false });
+};
+courseSchema.statics.getOneValidation = function (body) {
+  return getOneValidator.validate(body, { abortEarly: false });
+};
+courseSchema.statics.createSessionValidation = function (body) {
+  return createSessionValidator.validate(body, { abortEarly: false });
+};
+courseSchema.statics.registerValidation = function (body) {
+  return registerValidator.validate(body, { abortEarly: false });
+};
+courseSchema.statics.getCategoryCoursesValidation = function (body) {
+  return getCategoryCoursesValidator.validate(body, { abortEarly: false });
+};
+courseSchema.statics.removeCourseValidation = function (body) {
+  return removeCourseValidator.validate(body, { abortEarly: false });
+};
+courseSchema.statics.removeSessionValidation = function (body) {
+  return removeSessionValidator.validate(body, { abortEarly: false });
+};
+courseSchema.statics.getSessionInfoValidation = function (body) {
+  return getSessionInfoValidator.validate(body, { abortEarly: false });
+};
+courseSchema.statics.getRelatedValidation = function (body) {
+  return getRelatedValidator.validate(body, { abortEarly: false });
 };
 
 const model = mongoose.model("Course", courseSchema);

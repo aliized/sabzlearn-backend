@@ -1,3 +1,6 @@
+const fs = require("fs");
+const path = require("path");
+
 const articleModel = require("../../models/article");
 
 exports.create = async (req, res, next) => {
@@ -21,11 +24,9 @@ exports.create = async (req, res, next) => {
       publish: 1,
     });
 
-    const populatedCourse = await articleModel
-      .findById(article._id)
-      .populate("creator", "-password");
+    const populatedArticle = await article.populate("creator", "-password");
 
-    return res.status(201).json(populatedCourse);
+    return res.status(201).json(populatedArticle);
   } catch (error) {
     next(error);
   }
@@ -52,11 +53,9 @@ exports.saveDraft = async (req, res, next) => {
       publish: 0,
     });
 
-    const populatedCourse = await articleModel
-      .findById(article._id)
-      .populate("creator", "-password");
+    const draftedArticle = await article.populate("creator", "-password");
 
-    return res.status(201).json(populatedCourse);
+    return res.status(201).json(draftedArticle);
   } catch (error) {
     next(error);
   }
@@ -68,6 +67,11 @@ exports.getAll = async (req, res, next) => {
       .find()
       .populate("creator", "-password")
       .sort({ _id: -1 });
+
+    if (articles.length === 0) {
+      return res.status(404).json({ message: "No Article Available!" });
+    }
+
     return res.json(articles);
   } catch (error) {
     next(error);
@@ -81,6 +85,10 @@ exports.getOne = async (req, res, next) => {
       .populate("categoryID")
       .populate("creator", "-password")
       .lean();
+
+    if (!article) {
+      return res.status(404).json({ message: "Article Not Found!" });
+    }
 
     res.json(article);
   } catch (error) {
@@ -96,6 +104,22 @@ exports.remove = async (req, res, next) => {
     if (!deletedArticle) {
       return res.status(404).json({ message: "Article Not Found!" });
     }
+
+    const imgPath = path.join(
+      __dirname,
+      "..",
+      "..",
+      "public",
+      "courses",
+      "covers",
+      deletedArticle.cover
+    );
+    fs.unlink(imgPath, async (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+
     return res.json(deletedArticle);
   } catch (error) {
     next(error);
