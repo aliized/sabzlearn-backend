@@ -26,7 +26,9 @@ router
   .route("/category/:categoryName")
   .get(courseController.getCategoryCourses);
 
-router.route("/:id").delete(courseController.remove);
+router
+  .route("/:id")
+  .delete(authenticatedMiddleware, isAdminMiddleware, courseController.remove);
 
 router
   .route("/:id/sessions")
@@ -40,6 +42,7 @@ router
   );
 
 router.route("/sessions").get(courseController.getAllSessions);
+
 router
   .route("/sessions/:id")
   .delete(
@@ -52,15 +55,14 @@ router.route("/related/:shortName").get(courseController.getRelated);
 
 router
   .route("/:shortName/:sessionID")
-  .get(
-    authenticatedMiddleware,
-    courseController.getSessionInfo
-  );
+  .get(authenticatedMiddleware, courseController.getSessionInfo);
 
 router.route("/presell").get(courseController.getAll);
 router.route("/popular").get(courseController.getAll);
 
-router.route("/:shortName").post(authenticatedMiddleware, courseController.getOne);
+router
+  .route("/:shortName")
+  .get(authenticatedMiddleware, courseController.getOne);
 
 router
   .route("/:id/register")

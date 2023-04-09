@@ -3,7 +3,19 @@ const yup = require("yup");
 const createCourseValidator = yup.object().shape({
   name: yup.string().required("نام دوره الزامی است"),
   description: yup.string().required("توضیحات دوره الزامی است"),
-  cover: yup.string(),
+  cover: yup.object().shape({
+    size: yup
+      .number()
+      .max(30 * 1024 * 1024, "حجم تصویر نباید بیشتر از 30 مگابایت باشد"),
+    mimetype: yup
+      .string()
+      .oneOf(
+        ["image/jpeg", "image/jpg", "image/png", "image/webp"],
+        "فرمت تصویر باید JPEG یا PNG یا WebP باشد"
+      )
+      .required("تصویر الزامی می باشد"),
+  }),
+
   support: yup.string(),
   shortName: yup.string().required("نام کوتاه دوره الزامی است"),
   price: yup.number().required("قیمت دوره الزامی است").min(0),
@@ -32,7 +44,11 @@ const getOneValidator = yup.object().shape({
 const createSessionValidator = yup.object().shape({
   title: yup.string().required("عنوان جلسه الزامی است"),
   time: yup.number().required("زمان جلسه الزامی است"),
-  free: yup.boolean().required("وضعیت رایگان/غیررایگان الزامی است"),
+  free: yup
+    .number()
+    .min(0, "وضعیت رایگان/غیررایگان باید 0 یا 1 باشد")
+    .max(1, "وضعیت رایگان/غیررایگان باید 0 یا 1 باشد")
+    .required("وضعیت رایگان/غیررایگان الزامی است"),
   id: yup
     .string()
     .required("شناسه دوره الزامی است")
@@ -48,9 +64,9 @@ const createSessionValidator = yup.object().shape({
         return value.size <= 50 * 1024 * 1024;
       }
     )
-    .test("fileType", "فرمت فایل ویدیوی جلسه معتبر نیست", (value) => {
+    .test("mimetype", "فرمت فایل ویدیوی جلسه معتبر نیست", (value) => {
       if (!value) return true;
-      return ["video/mp4", "video/webm"].includes(value.type);
+      return ["video/mp4", "video/webm", "video/mpeg"].includes(value.mimetype);
     }),
 });
 
@@ -63,9 +79,7 @@ const registerValidator = yup.object().shape({
 });
 
 const getCategoryCoursesValidator = yup.object().shape({
-  params: yup.object().shape({
-    categoryName: yup.string().required("نام دسته‌بندی الزامی است"),
-  }),
+  categoryName: yup.string().required("نام دسته‌بندی الزامی است"),
 });
 
 const removeCourseValidator = yup.object().shape({

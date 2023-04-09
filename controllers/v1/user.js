@@ -64,10 +64,14 @@ exports.banUser = async (req, res, next) => {
     });
 
     const mainUser = await userModel.findOne({ _id: req.params.id }).lean();
+    if (!mainUser) {
+      return res.status(404).json("User not Found!");
+    }
+
     const banUserResult = banUserModel.create({ phone: mainUser.phone });
 
     if (banUserResult) {
-      return res.status(200).json({ msg: "User ban successfully" });
+      return res.status(200).json({ msg: "User banned successfully" });
     }
     return res.status(500).json({ msg: "Error" });
   } catch (error) {

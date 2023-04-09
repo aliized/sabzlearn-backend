@@ -13,6 +13,11 @@ exports.create = async (req, res, next) => {
       throw err;
     });
 
+    const duplicatedShortname = await articleModel.findOne({ shortName });
+    if (duplicatedShortname) {
+      return res.status(401).json({ message: "duplicated short name" });
+    }
+
     const article = await articleModel.create({
       title,
       description,
@@ -36,6 +41,11 @@ exports.saveDraft = async (req, res, next) => {
   try {
     const { title, description, body, shortName, categoryID } = req.body;
 
+    const duplicatedShortname = await articleModel.findOne({ shortName });
+    if (duplicatedShortname) {
+      return res.status(401).json({ message: "duplicated short name" });
+    }
+    
     const cover = req.file;
     await articleModel.validation({ ...req.body, cover }).catch((err) => {
       err.statusCode = 400;

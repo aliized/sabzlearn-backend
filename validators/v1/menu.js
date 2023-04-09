@@ -1,3 +1,5 @@
+const yup = require("yup");
+
 const createMenuValidator = yup.object().shape({
   title: yup.string().required("عنوان منو الزامی است"),
   href: yup.string().required("لینک منو الزامی است"),

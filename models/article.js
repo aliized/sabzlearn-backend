@@ -26,7 +26,6 @@ const articleSchema = new mongoose.Schema(
       unique: true,
     },
 
-
     categoryID: {
       type: mongoose.Types.ObjectId,
       ref: "Category",
@@ -40,9 +39,6 @@ const articleSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-
-
-    
   },
   { timestamps: true }
 );

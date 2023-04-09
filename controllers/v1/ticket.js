@@ -5,7 +5,7 @@ const courseModel = require("../../models/course");
 
 exports.create = async (req, res, next) => {
   try {
-    await courseModel.createValidation(req.body).catch((err) => {
+    await ticketModel.createValidation(req.body).catch((err) => {
       err.statusCode = 400;
       throw err;
     });
@@ -103,7 +103,7 @@ exports.getAll = async (req, res, next) => {
 
 exports.getAnswer = async (req, res, next) => {
   try {
-    await courseModel.getAnswerValidation(req.params).catch((err) => {
+    await ticketModel.getAnswerValidation(req.params).catch((err) => {
       err.statusCode = 400;
       throw err;
     });
@@ -126,7 +126,7 @@ exports.getAnswer = async (req, res, next) => {
 
 exports.setAnswer = async (req, res, next) => {
   try {
-    await courseModel.setAnswerValidation(req.body).catch((err) => {
+    await ticketModel.setAnswerValidation(req.body).catch((err) => {
       err.statusCode = 400;
       throw err;
     });
@@ -176,7 +176,7 @@ exports.departments = async (req, res, next) => {
 
 exports.departmentsSubs = async (req, res, next) => {
   try {
-    await courseModel.departmentsSubsValidation(req.params).catch((err) => {
+    await ticketModel.departmentsSubsValidation(req.params).catch((err) => {
       err.statusCode = 400;
       throw err;
     });

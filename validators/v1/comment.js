@@ -3,7 +3,12 @@ const yup = require("yup");
 const createCommentValidator = yup.object().shape({
   body: yup.string().required("متن نظر الزامی است"),
   courseShortName: yup.string().required("نام کوتاه دوره الزامی است"),
-  score: yup.number().integer().min(1).max(5).required("امتیاز الزامی است"),
+  score: yup
+    .number()
+    .integer()
+    .min(1, "حداقل امتیاز 1 است")
+    .max(5, "حداکثر امتیاز 5 است")
+    .required("امتیاز الزامی است"),
 });
 
 const answerCommentValidator = yup.object().shape({

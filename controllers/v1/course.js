@@ -1,3 +1,6 @@
+const fs = require("fs");
+const path = require("path");
+
 const courseModel = require("../../models/course");
 const sessionModel = require("../../models/session");
 const commentModel = require("../../models/comment");
@@ -6,7 +9,8 @@ const courseUserModel = require("../../models/course-user");
 
 exports.create = async (req, res, next) => {
   try {
-    await courseModel.createValidation(req.body).catch((err) => {
+    const cover = req.file;
+    await courseModel.createValidation({ ...req.body, cover }).catch((err) => {
       err.statusCode = 400;
       throw err;
     });
@@ -96,7 +100,7 @@ exports.getAll = async (req, res, next) => {
 
 exports.getOne = async (req, res, next) => {
   try {
-    await courseModel.getOneValidation(req.params).catch((err) => {
+    await courseModel.getOneValidation(req).catch((err) => {
       err.statusCode = 400;
       throw err;
     });
@@ -166,7 +170,7 @@ exports.createSession = async (req, res, next) => {
   try {
     const { title, time, free } = req.body;
     const { id } = req.params;
-    const { video } = req.file;
+    const video = req.file;
     await courseModel
       .createSessionValidation({
         title,
@@ -296,7 +300,7 @@ exports.getCategoryCourses = async (req, res, next) => {
 
 exports.remove = async (req, res, next) => {
   try {
-    await courseModel.removeCourseValidation(req.params).catch((err) => {
+    await courseModel.removeCourseValidation(req).catch((err) => {
       err.statusCode = 400;
       throw err;
     });
@@ -315,7 +319,7 @@ exports.remove = async (req, res, next) => {
 
 exports.removeSession = async (req, res, next) => {
   try {
-    await courseModel.removeSessionValidation(req.params).catch((err) => {
+    await courseModel.removeSessionValidation(req).catch((err) => {
       err.statusCode = 400;
       throw err;
     });
@@ -326,6 +330,22 @@ exports.removeSession = async (req, res, next) => {
     if (!deletedSession) {
       return res.status(404).json({ message: "Session Not Found!" });
     }
+
+    const videoPath = path.join(
+      __dirname,
+      "..",
+      "..",
+      "public",
+      "courses",
+      "covers",
+      deletedSession.video
+    );
+    fs.unlink(videoPath, async (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+
     return res.json(deletedSession);
   } catch (error) {
     next(error);
