@@ -35,6 +35,38 @@ exports.getAll = async (req, res, next) => {
   }
 };
 
+exports.editUser = async (req, res, next) => {
+  try {
+    const { name, username, email, password, phone, role } = req.body;
+    const { id } = req.params;
+    await userModel.editUserValidation({ ...req.body, id }).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
+
+    const hashedPassword = password
+      ? await bcrypt.hash(password, 12)
+      : undefined;
+
+    const updatedUser = await userModel.findByIdAndUpdate(
+      id,
+      {
+        name,
+        username,
+        email,
+        password: hashedPassword,
+        phone,
+        role,
+      },
+      { new: true }
+    );
+
+    return res.json({ user: updatedUser });
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.removeUser = async (req, res, next) => {
   try {
     await userModel.removeUserValidation(req.params).catch((err) => {
@@ -137,7 +169,7 @@ exports.changeUserRole = async (req, res, next) => {
       }
     );
 
-    res.json({ msg: "User role changed successfully" });
+    res.json({ msg: `User role changed to ${role} successfully` });
   } catch (error) {
     next(error);
   }

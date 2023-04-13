@@ -9,6 +9,7 @@ const {
   registerValidator,
   createSessionValidator,
   getOneValidator,
+  updateCourseValidator,
 } = require("../validators/v1/course");
 
 const courseSchema = new mongoose.Schema(
@@ -77,6 +78,9 @@ courseSchema.virtual("comments", {
 //* add yup validation method to mongoose statics
 courseSchema.statics.createValidation = function (body) {
   return createCourseValidator.validate(body, { abortEarly: false });
+};
+courseSchema.statics.updateValidation = function (body) {
+  return updateCourseValidator.validate(body, { abortEarly: false });
 };
 courseSchema.statics.getOneValidation = function (body) {
   return getOneValidator.validate(body, { abortEarly: false });

@@ -36,6 +36,45 @@ const createCourseValidator = yup.object().shape({
     .matches(/^[0-9a-fA-F]{24}$/, "شناسه دسته‌بندی معتبر نیست"),
 });
 
+
+const updateCourseValidator = yup.object().shape({
+  name: yup.string(),
+  description: yup.string(),
+  cover: yup.object().shape({
+    size: yup
+      .number()
+      .max(30 * 1024 * 1024, "حجم تصویر نباید بیشتر از 30 مگابایت باشد"),
+    mimetype: yup
+      .string()
+      .oneOf(
+        ["image/jpeg", "image/jpg", "image/png", "image/webp"],
+        "فرمت تصویر باید JPEG یا PNG یا WebP باشد"
+      )
+      ,
+  }),
+
+  support: yup.string(),
+  shortName: yup.string(),
+  price: yup.number().min(0),
+  status: yup
+    .string()
+    .oneOf(
+      ["start", "presell"],
+      "وضعیت باید یکی از این 2 حالت باشد start و presell"
+    ),
+  discount: yup
+    .number()
+    .min(0, "تخفیف دوره نمی‌تواند منفی باشد")
+    .max(100, "تخفیف دوره نمی‌تواند بیشتر از ۱۰۰ درصد باشد"),
+  categoryID: yup
+    .string()
+    .matches(/^[0-9a-fA-F]{24}$/, "شناسه دسته‌بندی معتبر نیست"),
+});
+
+
+
+
+
 const getOneValidator = yup.object().shape({
   params: yup.object().shape({
     shortName: yup.string().required("نام کوتاه دوره الزامی است"),
@@ -113,6 +152,7 @@ const getRelatedValidator = yup.object().shape({
 
 module.exports = {
   createCourseValidator,
+  updateCourseValidator,
   getOneValidator,
   createSessionValidator,
   registerValidator,

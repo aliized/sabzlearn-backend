@@ -19,6 +19,9 @@ const infosRoutes = require("./routes/v1/infos");
 const offsRoutes = require("./routes/v1/off");
 const ordersRoutes = require("./routes/v1/order");
 const ticketsRoutes = require("./routes/v1/ticket");
+const apiKey = require("./routes/v1/apiKey");
+
+const apiChecker = require("./middlewares/apiCheker");
 
 const app = express();
 
@@ -31,6 +34,10 @@ app.use(setHeaders);
 
 //* Static Folder
 app.use(express.static(path.join(__dirname, "public")));
+
+//* ApiKey Generator
+app.use(apiChecker);
+
 
 //* Routes
 app.use("/v1/articles", articlesRoutes);
@@ -48,6 +55,7 @@ app.use("/v1/orders", ordersRoutes);
 app.use("/v1/search", searchRoutes);
 app.use("/v1/tickets", ticketsRoutes);
 app.use("/v1/users", usersRoutes);
+app.use("/v1/apikey", apiKey);
 
 //* Error Controller
 app.use((req, res) => {

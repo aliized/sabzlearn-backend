@@ -5,6 +5,7 @@ const {
   banUserValidator,
   updateUserValidator,
   changeUserRoleValidator,
+  editUserValidator,
 } = require("../validators/v1/user");
 
 const userSchema = new mongoose.Schema(
@@ -60,6 +61,9 @@ userSchema.statics.updateUserValidation = function (body) {
 };
 userSchema.statics.changeUserRoleValidation = function (body) {
   return changeUserRoleValidator.validate(body, { abortEarly: false });
+};
+userSchema.statics.editUserValidation = function (body) {
+  return editUserValidator.validate(body, { abortEarly: false });
 };
 
 const model = mongoose.model("User", userSchema);

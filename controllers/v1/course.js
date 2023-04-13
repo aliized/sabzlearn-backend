@@ -50,6 +50,90 @@ exports.create = async (req, res, next) => {
   }
 };
 
+exports.update = async (req, res, next) => {
+  try {
+    const updatedCategory = await categoryModel.findOneAndUpdate(
+      { _id: req.params.id },
+      { name: req.body.name, title: req.body.title },
+      { new: true }
+    );
+    if (!updatedCategory) {
+      return res.status(404).json({ message: "Category Not Found!" });
+    }
+    return res.json(updatedCategory);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.update = async (req, res, next) => {
+  try {
+    const cover = req.file;
+    await courseModel.updateValidation({ ...req.body, cover }).catch((err) => {
+      err.statusCode = 400;
+      throw err;
+    });
+
+    const {
+      name,
+      description,
+      shortName,
+      categoryID,
+      price,
+      support,
+      status,
+      discount,
+      isComplete,
+    } = req.body;
+
+    const oldCourse = await courseModel.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        name,
+        description,
+        shortName,
+        creator: req.user._id,
+        categoryID,
+        price,
+        isComplete,
+        support,
+        status,
+        cover:
+          Boolean(req.file?.filename) === true ? req.file.filename : undefined,
+        discount: Boolean(discount) === true ? discount : 0,
+      }
+    );
+    if (!oldCourse) {
+      return res.status(404).json({ message: "Course Not Update!" });
+    }
+    const newCourse = await courseModel
+      .findById(oldCourse._id)
+      .populate("creator", "-password");
+
+    if (oldCourse.cover !== newCourse.cover) {
+      const imgPath = path.join(
+        __dirname,
+        "..",
+        "..",
+        "public",
+        "courses",
+        "covers",
+        oldCourse.cover
+      );
+
+      fs.unlink(imgPath, async (err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    }
+
+    return res.status(200).json(newCourse);
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.getAll = async (req, res, next) => {
   try {
     const courses = await courseModel
@@ -117,7 +201,7 @@ exports.getOne = async (req, res, next) => {
     const sessions = await sessionModel.find({ course: course._id }).lean();
     const comments = await commentModel
       .find({ course: course._id, answer: 1 })
-      .populate("creator")
+      .populate("creator", "-password")
       .lean();
 
     const courseStudentsCount = await courseUserModel
@@ -308,9 +392,16 @@ exports.remove = async (req, res, next) => {
     const deletedCourse = await courseModel.findOneAndRemove({
       _id: req.params.id,
     });
+
     if (!deletedCourse) {
       return res.status(404).json({ message: "Course Not Found!" });
     }
+
+    const deletedComments = await commentModel.deleteMany({
+      course: deletedCourse._id,
+    });
+    console.log(deletedComments);
+
     return res.json(deletedCourse);
   } catch (error) {
     next(error);

@@ -5,6 +5,7 @@ const courseController = require("../../controllers/v1/course");
 const multerStorage = require("../../util/multerStorage");
 const authenticatedMiddleware = require("../../middlewares/authenticated");
 const isAdminMiddleware = require("../../middlewares/isAdmin");
+const loginUser = require("../../middlewares/loginUser");
 
 const router = express.Router();
 
@@ -28,7 +29,15 @@ router
 
 router
   .route("/:id")
-  .delete(authenticatedMiddleware, isAdminMiddleware, courseController.remove);
+  .delete(authenticatedMiddleware, isAdminMiddleware, courseController.remove)
+  .put(
+    multer({ storage: multerStorage, limits: { fileSize: 1000000000 } }).single(
+      "cover"
+    ),
+    authenticatedMiddleware,
+    isAdminMiddleware,
+    courseController.update
+  );
 
 router
   .route("/:id/sessions")
@@ -62,7 +71,7 @@ router.route("/popular").get(courseController.getAll);
 
 router
   .route("/:shortName")
-  .get(authenticatedMiddleware, courseController.getOne);
+  .get(loginUser, courseController.getOne);
 
 router
   .route("/:id/register")
