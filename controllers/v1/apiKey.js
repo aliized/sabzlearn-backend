@@ -82,3 +82,9 @@ const getApiKeyByEmail = async (req, res, next) => {
 };
 
 module.exports = { generateApiKey, getApiKeyByEmail };
+
+
+
+
+
+

@@ -1,0 +1,141 @@
+[
+  {
+    "_id": {
+      "_id": "636a66a23f5ce1a8cd340526"
+    },
+    "course": {
+      "_id": "635305a1678235ce17e263cc"
+    },
+    "user": {
+      "_id": "636a62204950b7db7101093c"
+    },
+    "price": 700000,
+
+    "__v": 0
+  },
+  {
+    "_id": {
+      "_id": "636a66d33f5ce1a8cd3418fc"
+    },
+    "course": {
+      "_id": "635305a1678235ce17e263cc"
+    },
+    "user": {
+      "_id": "634e6bea1d5142b91afa9bb7"
+    },
+    "price": 600000,
+    "__v": 0
+  },
+  {
+    "_id": {
+      "_id": "636ab6cb9fe9e84ec1d74c9d"
+    },
+    "course": {
+      "_id": "635d494ed4d9250c10a1dadc"
+    },
+    "user": {
+      "_id": "634e6bea1d5142b91afa9bb7"
+    },
+    "price": 490000,
+
+    "__v": 0
+  },
+  {
+    "_id": {
+      "_id": "636ab89b9fe9e84ec1db7bd0"
+    },
+    "course": {
+      "_id": "6345cda6474f74e04218f6f7"
+    },
+    "user": {
+      "_id": "634e6bea1d5142b91afa9bb7"
+    },
+    "price": 500000,
+
+    "__v": 0
+  },
+  {
+    "_id": {
+      "_id": "636ab8ce9fe9e84ec1dbe999"
+    },
+    "course": {
+      "_id": "6345cda6474f74e04218f6f7"
+    },
+    "user": {
+      "_id": "636a62204950b7db7101093c"
+    },
+
+    "__v": 0,
+    "price": 0
+  },
+  {
+    "_id": {
+      "_id": "636ad38d79a7fab62e07d52c"
+    },
+    "course": {
+      "_id": "6353075d7c9b061595ff20f3"
+    },
+    "user": {
+      "_id": "634e6bea1d5142b91afa9bb7"
+    },
+    "price": 200000,
+
+    "__v": 0
+  },
+  {
+    "_id": {
+      "_id": "63b2a5215f733d2e6b3e9d5a"
+    },
+    "course": {
+      "_id": "635d494ed4d9250c10a1dadc"
+    },
+    "user": {
+      "_id": "63ad70dc5866e538812f4457"
+    },
+    "price": 0,
+
+    "__v": 0
+  },
+  {
+    "_id": {
+      "_id": "63b30394737c2af31e5fbee1"
+    },
+    "course": {
+      "_id": "63ac0dcca3afd7323a7bb285"
+    },
+    "user": {
+      "_id": "634e6b0e1d5142b91afa9bb3"
+    },
+    "price": 150000,
+
+    "__v": 0
+  },
+  {
+    "_id": {
+      "_id": "63b42b3dba500409f9495acf"
+    },
+    "course": {
+      "_id": "635305a1678235ce17e263cc"
+    },
+    "user": {
+      "_id": "634e6b0e1d5142b91afa9bb3"
+    },
+    "price": 0,
+
+    "__v": 0
+  },
+  {
+    "_id": {
+      "_id": "6431fb3b47299a8f25abe609"
+    },
+    "course": {
+      "_id": "63ac0dcca3afd7323a7bb285"
+    },
+    "user": {
+      "_id": "643187724748b2a2441eede4"
+    },
+    "price": 500000,
+
+    "__v": 0
+  }
+]

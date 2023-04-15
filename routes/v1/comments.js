@@ -2,7 +2,7 @@ const express = require("express");
 
 const commentController = require("../../controllers/v1/comment");
 const authenticatedMiddleware = require("../../middlewares/authenticated");
-const isAdminMiddleware = require("../../middlewares/isAdmin");
+const {isAdmin} = require("../../middlewares/isAdmin");
 
 const router = express.Router();
 
@@ -13,23 +13,23 @@ router
 
 router
   .route("/:id")
-  .delete(authenticatedMiddleware, isAdminMiddleware, commentController.remove);
+  .delete(authenticatedMiddleware, isAdmin , commentController.remove);
 
 router
   .route("/answer/:id")
-  .post(authenticatedMiddleware, isAdminMiddleware, commentController.answer);
+  .post(authenticatedMiddleware, isAdmin , commentController.answer);
 
 router
   .route("/accept/:id")
-  .put(authenticatedMiddleware, isAdminMiddleware, commentController.accept);
+  .put(authenticatedMiddleware, isAdmin , commentController.accept);
 
   router
   .route("/reject/:id")
-  .put(authenticatedMiddleware, isAdminMiddleware, commentController.reject);
+  .put(authenticatedMiddleware, isAdmin , commentController.reject);
 
 // router
 //   .route("/:id/sessions")
-//   .post(isAdminMiddleware, commentController.createSession);
+//   .post(isAdmin , commentController.createSession);
 
 // router.route("/:id/register").post(commentController.register);
 

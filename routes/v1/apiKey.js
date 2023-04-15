@@ -5,15 +5,13 @@ const {
 } = require("../../controllers/v1/apiKey");
 
 const authenticatedMiddleware = require("../../middlewares/authenticated");
-const isAdminMiddleware = require("../../middlewares/isAdmin");
+const { isSuperUser } = require("../../middlewares/isAdmin");
 
 const router = express.Router();
 
-router
-  .route("/")
-  .post(authenticatedMiddleware, isAdminMiddleware, generateApiKey);
+router.route("/").post(authenticatedMiddleware, isSuperUser, generateApiKey);
 router
   .route("/:email")
-  .get(authenticatedMiddleware, isAdminMiddleware, getApiKeyByEmail);
+  .get(authenticatedMiddleware, isSuperUser, getApiKeyByEmail);
 
 module.exports = router;

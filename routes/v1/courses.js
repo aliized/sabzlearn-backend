@@ -4,7 +4,7 @@ const multer = require("multer");
 const courseController = require("../../controllers/v1/course");
 const multerStorage = require("../../util/multerStorage");
 const authenticatedMiddleware = require("../../middlewares/authenticated");
-const isAdminMiddleware = require("../../middlewares/isAdmin");
+const {isAdmin} = require("../../middlewares/isAdmin");
 const loginUser = require("../../middlewares/loginUser");
 
 const router = express.Router();
@@ -18,7 +18,7 @@ router
       "cover"
     ),
     authenticatedMiddleware,
-    isAdminMiddleware,
+    isAdmin ,
     courseController.create
   )
   .get(courseController.getAll);
@@ -29,13 +29,13 @@ router
 
 router
   .route("/:id")
-  .delete(authenticatedMiddleware, isAdminMiddleware, courseController.remove)
+  .delete(authenticatedMiddleware, isAdmin , courseController.remove)
   .put(
     multer({ storage: multerStorage, limits: { fileSize: 1000000000 } }).single(
       "cover"
     ),
     authenticatedMiddleware,
-    isAdminMiddleware,
+    isAdmin ,
     courseController.update
   );
 
@@ -46,7 +46,7 @@ router
       "video"
     ),
     authenticatedMiddleware,
-    isAdminMiddleware,
+    isAdmin ,
     courseController.createSession
   );
 
@@ -56,7 +56,7 @@ router
   .route("/sessions/:id")
   .delete(
     authenticatedMiddleware,
-    isAdminMiddleware,
+    isAdmin ,
     courseController.removeSession
   );
 

@@ -4,7 +4,7 @@ const multer = require("multer");
 const articleController = require("../../controllers/v1/articleController");
 const multerStorage = require("../../util/multerStorage");
 const authenticatedMiddleware = require("../../middlewares/authenticated");
-const isAdminMiddleware = require("../../middlewares/isAdmin");
+const {isAdmin} = require("../../middlewares/isAdmin");
 
 const router = express.Router();
 
@@ -17,7 +17,7 @@ router
       "cover"
     ),
     authenticatedMiddleware,
-    isAdminMiddleware,
+    isAdmin ,
     articleController.create
   )
   .get(articleController.getAll);
@@ -31,12 +31,12 @@ router
       "cover"
     ),
     authenticatedMiddleware,
-    isAdminMiddleware,
+    isAdmin ,
     articleController.saveDraft
   );
 
 router
   .route("/:id")
-  .delete(authenticatedMiddleware, isAdminMiddleware, articleController.remove);
+  .delete(authenticatedMiddleware, isAdmin , articleController.remove);
 
 module.exports = router;

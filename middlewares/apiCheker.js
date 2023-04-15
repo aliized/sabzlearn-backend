@@ -3,11 +3,12 @@ const apiKeyModel = require("../models/apiKey");
 const apiChecker = async (req, res, next) => {
   const apiKey = req.headers["x-api-key"];
   if (!apiKey) {
-    // Allow requests without API key when generating the first key
-    if () {
+    const keys = await apiKeyModel.find();
+
+    if (!keys) {
       return next();
     } else {
-        console.log(req)
+      console.log(req);
       return res.status(401).json({ message: "API key is missing" });
     }
   }

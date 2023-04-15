@@ -1,0 +1,113 @@
+[{
+  "_id": {
+    "_id": "636704e039942774e9520267"
+  },
+  "code": "react_50",
+  "percent": "50",
+  "course": {
+    "_id": "635f05d6fd9e8fcba0d2c909"
+  },
+  "max": 1,
+  "uses": 0,
+  "creator": {
+    "_id": "634e6b0e1d5142b91afa9bb3"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "636927a6ca3c98516b658f40"
+  },
+  "code": "nodejs_50",
+  "percent": "50",
+  "course": {
+    "_id": "6345cda6474f74e04218f6f7"
+  },
+  "max": 1,
+  "uses": 0,
+  "creator": {
+    "_id": "634e6b0e1d5142b91afa9bb3"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "63692d65ca3c98516b7b863a"
+  },
+  "code": "bs35",
+  "percent": "35",
+  "course": {
+    "_id": "635d494ed4d9250c10a1dadc"
+  },
+  "max": 5,
+  "uses": 1,
+  "creator": {
+    "_id": "634e6bea1d5142b91afa9bb7"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "636ad36279a7fab62e06f052"
+  },
+  "code": "css_50",
+  "percent": "50",
+  "course": {
+    "_id": "6353075d7c9b061595ff20f3"
+  },
+  "max": 1,
+  "uses": 1,
+  "creator": {
+    "_id": "634e6bea1d5142b91afa9bb7"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "63b300f90af56b7ddf9447ec"
+  },
+  "code": "canvas_raad_40",
+  "percent": "40",
+  "course": {
+    "_id": "63ac0dcca3afd7323a7bb285"
+  },
+  "max": 1,
+  "uses": 1,
+  "creator": {
+    "_id": "634e6b0e1d5142b91afa9bb3"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "63b302940af56b7ddf94482e"
+  },
+  "code": "canvas50",
+  "percent": "50",
+  "course": {
+    "_id": "63ac0dcca3afd7323a7bb285"
+  },
+  "max": 1,
+  "uses": 1,
+  "creator": {
+    "_id": "634e6b0e1d5142b91afa9bb3"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "63b30381737c2af31e5fbed7"
+  },
+  "code": "canvas_50",
+  "percent": "50",
+  "course": {
+    "_id": "63ac0dcca3afd7323a7bb285"
+  },
+  "max": 1,
+  "uses": 1,
+  "creator": {
+    "_id": "634e6b0e1d5142b91afa9bb3"
+  },
+  
+  "__v": 0
+}]

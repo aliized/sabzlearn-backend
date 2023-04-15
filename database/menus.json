@@ -1,0 +1,266 @@
+[{
+  "_id": {
+    "_id": "6345987bd4a59348b0c6e2a7"
+  },
+  "title": "فرانت اند",
+  "href": "frontend",
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "63459980d4a59348b0c6e2aa"
+  },
+  "title": "بک اند",
+  "href": "backend",
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "634599e2d4a59348b0c6e2b0"
+  },
+  "title": "پایتون",
+  "href": "python",
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "634599efd4a59348b0c6e2b3"
+  },
+  "title": "امنیت",
+  "href": "security",
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "63459a20d4a59348b0c6e2b6"
+  },
+  "title": "مهارت های نرم",
+  "href": "softskills",
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "63459d88d4a59348b0c6e2e5"
+  },
+  "title": "آموزش جامع جاوا اسکریپت",
+  "href": "js-expert",
+  "parent": {
+    "_id": "6345987bd4a59348b0c6e2a7"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "63459dc0d4a59348b0c6e2e8"
+  },
+  "title": "آموزش جامع React js",
+  "href": "react-expert",
+  "parent": {
+    "_id": "6345987bd4a59348b0c6e2a7"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "63459dced4a59348b0c6e2eb"
+  },
+  "title": "آموزش Html",
+  "href": "html",
+  "parent": {
+    "_id": "6345987bd4a59348b0c6e2a7"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "63459dd7d4a59348b0c6e2ee"
+  },
+  "title": "آموزش Css",
+  "href": "css-course",
+  "parent": {
+    "_id": "6345987bd4a59348b0c6e2a7"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "63459df0d4a59348b0c6e2f1"
+  },
+  "title": "آموزش بوت استرپ",
+  "href": "bootstrap",
+  "parent": {
+    "_id": "6345987bd4a59348b0c6e2a7"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "63459dfcd4a59348b0c6e2f4"
+  },
+  "title": "آموزش ویو جی اس",
+  "href": "vuejs",
+  "parent": {
+    "_id": "6345987bd4a59348b0c6e2a7"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "63459e22d4a59348b0c6e2f7"
+  },
+  "title": "آموزش NPM",
+  "href": "npm",
+  "parent": {
+    "_id": "6345987bd4a59348b0c6e2a7"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "6345a023d4a59348b0c6e30f"
+  },
+  "title": "آموزش جامع Nodejs",
+  "href": "node-expert",
+  "parent": {
+    "_id": "63459980d4a59348b0c6e2aa"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "6345a071d4a59348b0c6e312"
+  },
+  "title": "آموزش دیتابیس Mysql",
+  "href": "mysql-course",
+  "parent": {
+    "_id": "63459980d4a59348b0c6e2aa"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "6345a080d4a59348b0c6e315"
+  },
+  "title": "آموزش دیتابیس Mongo",
+  "href": "mongo-course",
+  "parent": {
+    "_id": "63459980d4a59348b0c6e2aa"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "6345a08fd4a59348b0c6e318"
+  },
+  "title": "آموزش داکر",
+  "href": "docker",
+  "parent": {
+    "_id": "63459980d4a59348b0c6e2aa"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "6345a0b1d4a59348b0c6e31e"
+  },
+  "title": "آموزش جامع PHP",
+  "href": "php-expert",
+  "parent": {
+    "_id": "63459980d4a59348b0c6e2aa"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "6345a107d4a59348b0c6e324"
+  },
+  "title": "آموزش جامع پایتون",
+  "href": "py-expert",
+  "parent": {
+    "_id": "634599e2d4a59348b0c6e2b0"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "6345a12ed4a59348b0c6e32a"
+  },
+  "title": "آموزش دیتا ماینینگ با پایتون",
+  "href": "ai-with-py",
+  "parent": {
+    "_id": "634599e2d4a59348b0c6e2b0"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "6345a166d4a59348b0c6e32d"
+  },
+  "title": "آموزش ساخت ربات با پایتون",
+  "href": "ai-with-py",
+  "parent": {
+    "_id": "634599e2d4a59348b0c6e2b0"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "6366dd9f8d890d71eb097e05"
+  },
+  "title": "فریلنسری",
+  "href": "freelance",
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "6366ddeb8d890d71eb0abf2e"
+  },
+  "title": "تعیین قیمت پروژه",
+  "href": "set-projects-price",
+  "parent": {
+    "_id": "6366dd9f8d890d71eb097e05"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "63ac46c2ffb152b67cf96e83"
+  },
+  "title": "اندروید",
+  "href": "andr_id",
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "63ac4712ffb152b67cf96ea4"
+  },
+  "title": "دوره جامع اندروید استودیو",
+  "href": "andr_id-studio",
+  "parent": {
+    "_id": "63ac46c2ffb152b67cf96e83"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "63ac5b727cca02e062b00c6c"
+  },
+  "title": "مهارت تعیین قیمت پروژه های فریلنسری",
+  "href": "set-projects-price",
+  "parent": {
+    "_id": "63459a20d4a59348b0c6e2b6"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "63ac5c8e7cca02e062b00cbc"
+  },
+  "title": "آموزش نصب SDK",
+  "href": "install-sdk",
+  "parent": {
+    "_id": "63ac46c2ffb152b67cf96e83"
+  },
+  
+  "__v": 0
+}]

@@ -1,6 +1,6 @@
 const express = require("express");
 
-const isAdminMiddleware = require("../../middlewares/isAdmin");
+const {isAdmin} = require("../../middlewares/isAdmin");
 const authenticatedMiddleware = require("../../middlewares/authenticated");
 const controller = require("../../controllers/v1/infos");
 
@@ -10,6 +10,6 @@ router.route("/index").get(controller.getIndex);
 
 router
   .route("/p-admin")
-  .get(authenticatedMiddleware, isAdminMiddleware, controller.getPAdmin);
+  .get(authenticatedMiddleware, isAdmin , controller.getPAdmin);
 
 module.exports = router;

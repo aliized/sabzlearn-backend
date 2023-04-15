@@ -1,0 +1,169 @@
+[{
+  "_id": {
+    "_id": "6345cda6474f74e04218f6f7"
+  },
+  "name": "دوره جامع Nodejds برای‌بازار کار",
+  "description": "توضیحات تستی برای دوره ری‌اکت سبزلرن",
+  "cover": "fareelancer.png",
+  "shortName": "node-expert",
+  "categoryID": {
+    "_id": "6345cc0a32c10de974957635"
+  },
+  "creator": {
+    "_id": "634e6bea1d5142b91afa9bb7"
+  },
+  
+  "__v": 0,
+  "isComplete": 0,
+  "support": "گروه تلگرامی",
+  "price": 2900000,
+  "status": "start",
+  "discount": 10
+},{
+  "_id": {
+    "_id": "6345cfc7586b68648f7f2430"
+  },
+  "name": "دوره NPM برای برنامه نویسان جاوا اسکریپت",
+  "description": "توضیحات تست برای دوره NPM سبزلرن",
+  "cover": "fareelancer.png",
+  "shortName": "npm",
+  "categoryID": {
+    "_id": "6345cbd132c10de974957632"
+  },
+  "creator": {
+    "_id": "634e6bea1d5142b91afa9bb7"
+  },
+  
+  "__v": 0,
+  "isComplete": 1,
+  "support": "گروه تلگرامی",
+  "price": 0,
+  "status": "start",
+  "discount": 10
+},{
+  "_id": {
+    "_id": "635305a1678235ce17e263cc"
+  },
+  "name": "دوره آموزش Vuejs",
+  "description": "توضیحات تستی برای دوره  ویو جی اس",
+  "cover": "fareelancer.png",
+  "support": "گروه تلگرامی",
+  "shortName": "vuejs",
+  "price": 0,
+  "isComplete": 0,
+  "categoryID": {
+    "_id": "6345cbd132c10de974957632"
+  },
+  "creator": {
+    "_id": "634e6b0e1d5142b91afa9bb3"
+  },
+  
+  "__v": 0,
+  "status": "start",
+  "discount": 10
+},{
+  "_id": {
+    "_id": "635306db7c9b061595ff20db"
+  },
+  "name": "دوره جامع Html",
+  "description": "توضیحات تستی برای دوره Html",
+  "cover": "fareelancer.png",
+  "support": "گروه تلگرامی",
+  "shortName": "html",
+  "price": 200000,
+  "isComplete": 0,
+  "categoryID": {
+    "_id": "6345cbd132c10de974957632"
+  },
+  "creator": {
+    "_id": "634e6b0e1d5142b91afa9bb3"
+  },
+  
+  "__v": 0,
+  "status": "start",
+  "discount": 10
+},{
+  "_id": {
+    "_id": "635d494ed4d9250c10a1dadc"
+  },
+  "name": "دوره پروژه محور بوت استرپ",
+  "description": "توضیحات تستی برای دوره BootStrap",
+  "cover": "fareelancer.png",
+  "support": "گروه تلگرامی",
+  "shortName": "bootstrap",
+  "price": 0,
+  "isComplete": 0,
+  "status": "start",
+  "categoryID": {
+    "_id": "6345cbd132c10de974957632"
+  },
+  "creator": {
+    "_id": "634e6b0e1d5142b91afa9bb3"
+  },
+  
+  "__v": 0,
+  "discount": 10
+},{
+  "_id": {
+    "_id": "635f05d6fd9e8fcba0d2c909"
+  },
+  "name": "آموزش 20 کتابخانه جاوا اسکریپت",
+  "description": "توضیحات تستی برای دوره آموزش 20 کتابخانه جاوا اسکریپت",
+  "cover": "1e06a3e64408308b25c5439e803bb0aa06e2502f4e7173764405642297260e58.png",
+  "support": "گروه تلگرامی",
+  "shortName": "js-20-lib",
+  "price": 300000,
+  "isComplete": 0,
+  "status": "start",
+  "categoryID": {
+    "_id": "6345cbd132c10de974957632"
+  },
+  "creator": {
+    "_id": "634e6b0e1d5142b91afa9bb3"
+  },
+  
+  "__v": 0,
+  "discount": 10
+},{
+  "_id": {
+    "_id": "63ac09b2eac86a8e8a018b89"
+  },
+  "name": "دوره RegEx برای تمامی برنامه نویسان",
+  "description": "یادگیری رجکس برای تمام برنامه نویسان ضروری و واجب می‌باشد...",
+  "cover": "9761a4f83d7bcdc466ed39fafdb6235a192ef9ea97f484393ce93175c656d22b.png",
+  "support": "پرسش و پاسخ سبزلرن",
+  "shortName": "regex-course",
+  "price": 240000,
+  "isComplete": 0,
+  "status": "start",
+  "discount": 10,
+  "categoryID": {
+    "_id": "6345cbd132c10de974957632"
+  },
+  "creator": {
+    "_id": "634e6b0e1d5142b91afa9bb3"
+  },
+  
+  "__v": 0
+},{
+  "_id": {
+    "_id": "63ac0dcca3afd7323a7bb285"
+  },
+  "name": "دوره آموزش پروژه محور Canvas",
+  "description": "با canvas می‌تونین کلی افکت و انمینیشن های باحال و جذاب به پروژه هاتون اضافه بکنین ...",
+  "cover": "043e100d7ddb2b9788c75fd22e8dbd7009e36be68be70730daa3982f87d1b46a.png",
+  "support": "پرسش و پاسخ سبزلرن",
+  "shortName": "canvas",
+  "price": 300000,
+  "isComplete": 0,
+  "status": "start",
+  "discount": 10,
+  "categoryID": {
+    "_id": "6345cbd132c10de974957632"
+  },
+  "creator": {
+    "_id": "634e6b0e1d5142b91afa9bb3"
+  },
+  
+  "__v": 0
+}]
